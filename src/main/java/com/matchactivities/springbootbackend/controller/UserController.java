@@ -36,7 +36,7 @@ public class UserController {
 
         }*/
 
-        User user = new User(newUser.getName(), newUser.getLastName(), newUser.getEmail());
+        User user = new User(newUser.getName(), newUser.getEmail(),newUser.getPassword());
         userRepository.save(user);
         return ResponseEntity.ok("Usuário cadastrado");
     }

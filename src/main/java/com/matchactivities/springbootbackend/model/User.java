@@ -15,17 +15,14 @@ public class User {
     private long id;
     @Column(name ="nome")
     private String name;
-    @Column(name ="sobrenome")
-    private String lastName;
     @Column(name ="email")
     private String email;
     @Column(name ="senha")
     private String password;
    // private boolean loggedIn;
 
-    public User(String name, String lastName, String email) {
+    public User(String name, String email, String password) {
         this.name = name;
-        this.lastName = lastName;
         this.email = email;
         this.password = password;
        // this.loggedIn = false;

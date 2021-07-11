@@ -11,8 +11,6 @@ public class RegisterForm
 {
     @Size(min=2, max=30)
     private String name;
-    @Size(min=2, max=30)
-    private String lastName;
     @NotNull @Email
     private String email;
     @NotNull @Size(min=3, max= 20)
@@ -24,14 +22,6 @@ public class RegisterForm
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getEmail() {

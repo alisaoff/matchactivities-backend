@@ -26,8 +26,7 @@ public class UserService {
 
     public User registerNewUser(RegisterForm newUser){
 
-    User user = new User();
-    newUser.getName(); newUser.getEmail(); user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+    User user = new User(newUser.getName(), newUser.getEmail(), passwordEncoder.encode(newUser.getPassword()));
        return userRepository.save(user) ;
     }
 }

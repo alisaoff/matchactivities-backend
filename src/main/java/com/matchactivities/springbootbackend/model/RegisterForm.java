@@ -4,16 +4,20 @@ package com.matchactivities.springbootbackend.model;
 import com.sun.istack.NotNull;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import javax.validation.Valid;
-public class RegisterForm
 
-{
-    @Size(min=2, max=30)
+public class RegisterForm {
+    @NotBlank
+    @NotNull
+    @Size(min = 2, max = 30)
     private String name;
-    @NotNull @Email
+    @NotNull
+    @NotBlank
+    @Email
     private String email;
-    @NotNull @Size(min=3, max= 20)
+    @NotNull
+    @Size(min = 5, max = 20)
     private String password;
 
     public String getName() {

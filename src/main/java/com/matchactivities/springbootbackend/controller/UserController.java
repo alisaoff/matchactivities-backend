@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,21 +22,26 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+
     @GetMapping
     public ResponseEntity<List<User>> list() {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
     @PostMapping()
-    public ResponseEntity<String> register(@RequestBody RegisterForm newUser) {
+    public ResponseEntity<String> register(@Valid @RequestBody RegisterForm newUser) {
 
-         User user = userService.registerNewUser(newUser);
+        User user = userService.registerNewUser(newUser);
 
-        // kkkk nao tem metodo de validacao ainda
+        //validation !!!!
+        //video 18
+
 
 
         return ResponseEntity.ok("Usuário cadastrado");
     }
 
+
+    //método de login
 
 }

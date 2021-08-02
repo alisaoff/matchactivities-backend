@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+//jwt no fturo ??
+
 @Entity
 @Data
 @Table(name = "users")
@@ -17,13 +19,13 @@ public class User {
     private String email;
     @Column(name = "senha")
     private String password;
-    // private boolean loggedIn;
+
 
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        // this.loggedIn = false;
+
     }
 
     public User() {

@@ -8,15 +8,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Properties;
-
 
 @Service
 public class UserService {
 
     @Autowired
     UserRepository userRepository;
-    
+
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     //metodo de validacao de formulário da zueira
@@ -24,9 +22,9 @@ public class UserService {
 
     //metodo de salvar usuario
 
-    public User registerNewUser(RegisterForm newUser){
+    public User registerNewUser(RegisterForm newUser) {
 
-    User user = new User(newUser.getName(), newUser.getEmail(), passwordEncoder.encode(newUser.getPassword()));
-       return userRepository.save(user) ;
+        User user = new User(newUser.getName(), newUser.getEmail(), passwordEncoder.encode(newUser.getPassword()));
+        return userRepository.save(user);
     }
 }

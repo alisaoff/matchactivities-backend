@@ -2,11 +2,13 @@ package com.matchactivities.springbootbackend.model;
 
 
 import com.sun.istack.NotNull;
+import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Data
 public class RegisterForm {
     @NotBlank
     @NotNull
@@ -17,7 +19,7 @@ public class RegisterForm {
     @Email
     private String email;
     @NotNull
-    @Size(min = 5, max = 20)
+    @Size(min = 5, max=20)
     private String password;
 
     public String getName() {

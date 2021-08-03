@@ -1,4 +1,4 @@
-/*package com.matchactivities.springbootbackend.config;
+package com.matchactivities.springbootbackend.config;
 
 
 import org.springframework.context.annotation.Bean;
@@ -11,22 +11,35 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter
-{
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
-    public static BCryptPasswordEncoder passwordEncoder(){
+    public static BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated().and().formLogin();
+        http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
     }
 
+ /*
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
        auth.inMemoryAuthentication().withUser("user")
-               .password(passwordEncoder().encode("sexo")).authorities("USER");
-    }
+               .password(passwordEncoder().encode("ts")).authorities("USER");
+    }*/
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("alyson")
+                .password(passwordEncoder().encode("senha"))
+                .roles("USER", "ADMIN")
+                .and()
+                .withUser("user")
+                .password(passwordEncoder().encode("senha"))
+                .roles("USER")
+        ;
+    }
 }
-*/
+

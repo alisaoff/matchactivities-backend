@@ -28,7 +28,7 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<String> register(@Valid @RequestBody RegisterForm newUser) {
 
         User user = userService.registerNewUser(newUser);

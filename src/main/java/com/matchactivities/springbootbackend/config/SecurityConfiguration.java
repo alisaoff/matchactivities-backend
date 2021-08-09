@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-
+    //permissoes e etc. depois sera necessario a criaçao de roles e outras coisas
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
@@ -44,25 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
- /*
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       auth.inMemoryAuthentication().withUser("user")
-               .password(passwordEncoder().encode("ts")).authorities("USER");
-    }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("alyson")
-                .password(passwordEncoder().encode("senha"))
-                .roles("USER", "ADMIN")
-                .and()
-                .withUser("user")
-                .password(passwordEncoder().encode("senha"))
-                .roles("USER")
-        ;
-    }*/
     
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {

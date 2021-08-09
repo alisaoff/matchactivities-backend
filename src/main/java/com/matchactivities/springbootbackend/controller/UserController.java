@@ -28,25 +28,17 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
-    @GetMapping("/teste")
-    public String teste() {
-        return "oi";
-    }
 
     @PostMapping
     public ResponseEntity<String> register(@Valid @RequestBody RegisterForm newUser) {
 
         User user = userService.registerNewUser(newUser);
 
-        //validation !!!!
-        //video 18
-
-
 
         return ResponseEntity.ok("Usuário cadastrado");
     }
 
 
-    //método de login
+
 
 }

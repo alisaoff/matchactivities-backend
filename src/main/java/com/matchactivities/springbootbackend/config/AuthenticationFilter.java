@@ -1,7 +1,5 @@
 package com.matchactivities.springbootbackend.config;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
@@ -11,17 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.matchactivities.springbootbackend.model.UserResponse;
-import com.matchactivities.springbootbackend.repository.UserRepository;
-import com.matchactivities.springbootbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,12 +32,13 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public AuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
+    //magica
     @Autowired
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
-        //transformar isso em método :p vamo que vamo!
+
             User applicationUser = new ObjectMapper().readValue(req.getInputStream(), User.class);
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(applicationUser.getName(),
@@ -68,6 +61,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         String token = Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, SecurityConfiguration.SECRET).setExpiration(exp).compact();
         res.addHeader("token", token);
 
+    //depois preciso transformar isso em um método separado, deixar o código mais bonito
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode rootNode = mapper.createObjectNode();
 

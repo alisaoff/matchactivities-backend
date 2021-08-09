@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-//jwt no fturo ??
+
 
 @Entity
 @Data

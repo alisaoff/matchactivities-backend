@@ -28,7 +28,12 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
-    @PostMapping()
+    @GetMapping("/teste")
+    public String teste() {
+        return "oi";
+    }
+
+    @PostMapping
     public ResponseEntity<String> register(@Valid @RequestBody RegisterForm newUser) {
 
         User user = userService.registerNewUser(newUser);

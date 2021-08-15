@@ -18,8 +18,8 @@ public class RegisterForm {
     @NotBlank
     @Email
     private String email;
-    @NotNull
-    @Size(min = 5, max=20)
+   // @NotNull
+   // @NotBlank
     private String password;
 
     public String getName() {

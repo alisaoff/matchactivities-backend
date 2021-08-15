@@ -36,6 +36,8 @@ public class UserService implements UserDetailsService {
 
     public User registerNewUser(RegisterForm newUser) {
 
+
+
         User user = new User(newUser.getName(), newUser.getEmail(), passwordEncoder.encode(newUser.getPassword()));
         return userRepository.save(user);
     }
@@ -49,14 +51,7 @@ public class UserService implements UserDetailsService {
 
         if (user == null) throw new UsernameNotFoundException(username);
 
-        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), Collections.emptyList());
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.emptyList());
     }
 
-    public User loadUserByUsernameDois(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByName(username);
-
-        if (user == null) throw new UsernameNotFoundException(username);
-
-        return user;
-    }
 }

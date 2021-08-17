@@ -24,6 +24,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import static java.lang.Integer.valueOf;
+
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -75,12 +77,17 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
         res.getWriter().write(jsonString);
-
+        System.out.println("deu certo :)");
     }
 
     @Override
     protected AuthenticationFailureHandler getFailureHandler() {
         return super.getFailureHandler();
+    }
+
+    public int getIdusuario(String token) {
+        Claims claims =  Jwts.parser().setSigningKey(SecurityConfiguration.SECRET).parseClaimsJws(token).getBody();
+        return valueOf(Integer.parseInt(claims.getSubject()));
     }
 }
 

@@ -20,7 +20,7 @@ import java.util.Collections;
 public class UserService implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepository;
+     UserRepository userRepository;
 
 
 
@@ -60,7 +60,10 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
 
-        if (user == null) throw new UsernameNotFoundException(username);
+        if (user == null) {
+            System.out.println("Usuario nao encontrado");
+            throw new UsernameNotFoundException(username);
+        }
 
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.emptyList());
     }

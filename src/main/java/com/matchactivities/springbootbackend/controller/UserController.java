@@ -31,7 +31,8 @@ public class UserController {
 
 
     @PostMapping
-    public ResponseEntity<String> register(@Valid @RequestBody RegisterForm newUser) {
+    public ResponseEntity<String> register(@Valid @RequestBody RegisterForm newUser) throws Exception {
+
 
         User user = userService.registerNewUser(newUser);
 

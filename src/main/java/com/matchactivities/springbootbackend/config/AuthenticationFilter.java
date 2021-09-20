@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -35,6 +36,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public AuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
+
+
+
     //magica
     @Autowired
     @Override
@@ -44,7 +48,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
             User applicationUser = new ObjectMapper().readValue(req.getInputStream(), User.class);
             return authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(applicationUser.getName(),
+                    new UsernamePasswordAuthenticationToken(applicationUser.getEmail(),
                             applicationUser.getPassword(), Collections.emptyList())
             );
         } catch (IOException e) {

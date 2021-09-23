@@ -44,7 +44,7 @@ public class UserService implements UserDetailsService {
             throw new Exception("Usuário não e unico");
         }
 
-
+        System.out.println(newUser.getPassword());
         User user = new User(newUser.getName(), newUser.getEmail(), passwordEncoder.encode(newUser.getPassword()));
         return userRepository.save(user);
     }

@@ -37,7 +37,7 @@ public class UserController {
         User user = userService.registerNewUser(newUser);
 
 
-        return ResponseEntity.ok("Usuário cadastrado");
+        return ResponseEntity.ok("Usuário cadastrado" + newUser.getPassword());
     }
 
 

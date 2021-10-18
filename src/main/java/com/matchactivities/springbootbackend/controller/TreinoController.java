@@ -28,7 +28,7 @@ public class TreinoController {
 
     //funciona
     @GetMapping
-    public ResponseEntity<List<Treino>> list(long agendaId) {
+    public ResponseEntity<List<Treino>> list(Long agendaId) {
 
         return ResponseEntity.ok(treinoRepository.findAll());
     }

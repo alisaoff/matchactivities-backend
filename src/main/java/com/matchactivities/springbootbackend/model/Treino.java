@@ -1,5 +1,6 @@
 package com.matchactivities.springbootbackend.model;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,10 +30,11 @@ public class Treino {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="agenda_id")
+    @NotNull
     private Agenda agenda;
 
     @Column(name = "atividade")

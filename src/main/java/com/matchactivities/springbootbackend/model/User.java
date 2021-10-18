@@ -16,7 +16,7 @@ import java.util.Collection;
 public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(name = "nome")
     private String name;
     @Column(name = "email")

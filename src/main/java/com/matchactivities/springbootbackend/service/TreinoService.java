@@ -38,7 +38,7 @@ public class TreinoService {
                 .descricao(newTreino.getDescricao())
                 .estado(false).build();
         System.out.println("treino salvo ;)");
-
+        agenda.getTreinos().add(treino);
         return treinoRepository.save(treino);
 
 

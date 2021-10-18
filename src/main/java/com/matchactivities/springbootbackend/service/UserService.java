@@ -1,11 +1,9 @@
 package com.matchactivities.springbootbackend.service;
 
-import com.matchactivities.springbootbackend.model.RegisterForm;
+import com.matchactivities.springbootbackend.dto.RegisterForm;
 import com.matchactivities.springbootbackend.model.User;
 import com.matchactivities.springbootbackend.repository.UserRepository;
-import org.hibernate.NonUniqueResultException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,17 +11,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 
 
 @Service
 public class UserService implements UserDetailsService {
 
     @Autowired
-     UserRepository userRepository;
-
-
-
+    UserRepository userRepository;
 
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -40,7 +34,7 @@ public class UserService implements UserDetailsService {
 
     public User registerNewUser(RegisterForm newUser) throws Exception {
         //email unico
-        if (userRepository.existsUserByEmail(newUser.getEmail())){
+        if (userRepository.existsUserByEmail(newUser.getEmail())) {
             throw new Exception("Usuário não e unico");
         }
 
@@ -51,11 +45,27 @@ public class UserService implements UserDetailsService {
 
 
 
-    //override do loadUserByUsername do security para seguir MINHAS regras :)
-    //talvez seja interessante fazer separar userDetailsService de userService (que no caso seriam as regras de serviço
-    //referentes ao user do matchActivities... e nao da interface
 
-    //pedir para o fellipe mandar "name":"blabla, "password":"blabla,
+    public User loadUserByEmail(String username) throws UsernameNotFoundException {
+        /* User user = userRepository.findByEmail(username);
+
+       if (userRepository.existsUserByEmail(username)) {
+            throw new UsernameNotFoundException("Usuário não e unico");
+        }
+        if (user == null) {
+            System.out.println("Usuario nao encontrado");
+            throw new UsernameNotFoundException(username);
+        }*/
+
+        return userRepository.findByEmail(username);
+    }
+
+    public User findUser(String email){
+
+        return  userRepository.findByEmail(email);
+    }
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
@@ -65,9 +75,9 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.emptyList());
+        //return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.emptyList());
+        return user;
     }
-
 
 
 }

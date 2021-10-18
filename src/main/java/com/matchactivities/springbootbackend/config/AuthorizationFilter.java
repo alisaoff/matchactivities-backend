@@ -50,8 +50,10 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
                 .getBody();
 
         if(user == null) return null;
+        String z = user.getSubject();
 
-        return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+
+        return new UsernamePasswordAuthenticationToken(z, null, Collections.emptyList());
     }
 
 

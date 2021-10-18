@@ -1,6 +1,7 @@
 package com.matchactivities.springbootbackend.config;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.matchactivities.springbootbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,14 +21,18 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	
+    private final ObjectMapper objectMapper;
     public static final String SECRET = "SEGREDO";
     public static final String HEADER_NAME = "Authorization";
-    public static final Long EXPIRATION_TIME = 1000L*60*30;
-	
+   // public static final Long EXPIRATION_TIME = 1000L*60*30;
+   public static final long EXPIRATION_TIME = 3600000; // 60 minutes
     @Autowired
     UserService userService;
-    
+
+    public SecurityConfiguration(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     @Bean
     public static BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -39,10 +44,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
         .antMatchers(HttpMethod.POST, "/api/user").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user").permitAll()
         .antMatchers(HttpMethod.OPTIONS, "/login").permitAll()
         .antMatchers(HttpMethod.POST, "/login").permitAll()
-
-
+            //    .antMatchers(HttpMethod.POST, "/criarTreino").permitAll()
+            //    .antMatchers(HttpMethod.POST, "/criarAgenda").permitAll()
+            //    .antMatchers(HttpMethod.POST, "/api/agenda/criarAgenda").permitAll()
+            //    .antMatchers(HttpMethod.POST, "/api/treinos/criarTreino").permitAll()
+           //     .antMatchers(HttpMethod.DELETE, "/api/treinos/deletarTreino").permitAll()
+           //     .antMatchers(HttpMethod.GET, "/api/treinos/listarTreinos").permitAll()
 
         .anyRequest().authenticated().and()
         .addFilter(new AuthenticationFilter(authenticationManager()))

@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @Builder
@@ -13,15 +14,14 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode
 @NoArgsConstructor
-
-@Table
+@Table(name = "treinos")
 @ToString
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Agenda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
 
     @Column(name = "nome")
@@ -31,8 +31,9 @@ public class Agenda {
     private String criadoPor;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "agenda")
-    private List<Treino> treinos;
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="id")
+    private Set<Treino> treinos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -10,13 +10,12 @@ import java.util.Collection;
 
 
 @Entity
-@Data
 @Table(name = "users")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     @Column(name = "nome")
     private String name;
     @Column(name = "email")

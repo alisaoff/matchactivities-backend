@@ -31,7 +31,6 @@ public class TreinoService {
         Agenda agenda = agendaRepository.findById(newTreino.getIdAgenda());
 
         Treino treino = Treino.builder()
-                .agenda(agenda)
                 .horario(newTreino.getHorario())
                 .data(newTreino.getData())
                 .atividade(newTreino.getAtividade())

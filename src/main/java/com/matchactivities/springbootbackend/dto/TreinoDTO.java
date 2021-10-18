@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class TreinoDTO {
 
-    private int idAgenda;
+
 
     private String atividade;
 
@@ -18,7 +18,7 @@ public class TreinoDTO {
     //depois volta pra data
     @Column(name = "data")
     private String data;
-
+    private int idAgenda;
 
     //Murar para date depois depois
 

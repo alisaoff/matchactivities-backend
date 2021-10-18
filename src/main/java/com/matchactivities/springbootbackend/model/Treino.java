@@ -13,12 +13,8 @@ import java.util.Date;
 @Entity
 @EqualsAndHashCode
 @Table(name = "treinos")
-
-
 @ToString
-
 @NoArgsConstructor
-
 //Builder estava dando falha
 //foi por causa do lombok :))
 @Getter
@@ -30,12 +26,9 @@ public class Treino {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="agenda_id")
-    @NotNull
-    private Agenda agenda;
+
 
     @Column(name = "atividade")
     private String atividade;

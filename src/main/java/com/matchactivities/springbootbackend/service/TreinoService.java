@@ -1,6 +1,10 @@
 package com.matchactivities.springbootbackend.service;
 
+import com.matchactivities.springbootbackend.dto.TreinoDTO;
+import com.matchactivities.springbootbackend.model.Agenda;
 import com.matchactivities.springbootbackend.model.Treino;
+import com.matchactivities.springbootbackend.model.User;
+import com.matchactivities.springbootbackend.repository.AgendaRepository;
 import com.matchactivities.springbootbackend.repository.TreinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +15,8 @@ public class TreinoService {
 
     @Autowired
     TreinoRepository treinoRepository;
-
-
+    @Autowired
+    AgendaRepository agendaRepository;
     public TreinoService(TreinoRepository treinoRepository) {
         this.treinoRepository = treinoRepository;
     }
@@ -21,21 +25,38 @@ public class TreinoService {
 
     }
 
-    public Treino registerNewTreino(Treino newTreino) {
+    public Treino registerNewTreino(TreinoDTO newTreino) {
+        //validacoes?
 
-        return treinoRepository.save(newTreino);
+        Agenda agenda = agendaRepository.findById(newTreino.getIdAgenda());
 
-    }
+        Treino treino = Treino.builder()
+                .agenda(agenda)
+                .horario(newTreino.getHorario())
+                .data(newTreino.getData())
+                .atividade(newTreino.getAtividade())
+                .descricao(newTreino.getDescricao())
+                .estado(false).build();
+        System.out.println("treino salvo ;)");
 
-    public Treino alterarTreino(Treino treino) {
+        return treinoRepository.save(treino);
 
-        return treino;
 
     }
 
     public void deletarTreino(Long id) {
         treinoRepository.deleteById(id);
     }
+
+    /*
+    //TODO
+    public Treino alterarTreino(Treino treino) {
+
+        return treino;
+
+    } */
+
+
 
 
 }

@@ -35,6 +35,14 @@ public class AgendaController {
     public ResponseEntity<List<Agenda>> listAll() {
         return ResponseEntity.ok(agendaRepository.findAll());
     }
+    //essa lógica precisa ser melhorada.
+    @GetMapping(path ="/listarAgendasEspecificasEspecialista")
+    public ResponseEntity<List<Agenda>> listSpecialist() {
+        String z;
+        Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+        z = principal.getName();
+        return ResponseEntity.ok(agendaRepository.findAllByCriadoPor(z));
+    }
 
     @GetMapping(path ="/listarAgendasEspecificas")
     public ResponseEntity<List<Agenda>> list() {
@@ -43,8 +51,6 @@ public class AgendaController {
         z = principal.getName();
         return ResponseEntity.ok(agendaRepository.findAllByCriadoPor(z));
     }
-
-
 
 
     //localhost:8080/api/agenda/email@email.com

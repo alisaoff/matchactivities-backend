@@ -1,6 +1,9 @@
 package com.matchactivities.springbootbackend.controller;
 
+import com.matchactivities.springbootbackend.dto.RegisterForm;
+import com.matchactivities.springbootbackend.dto.TreinoDTO;
 import com.matchactivities.springbootbackend.model.Treino;
+import com.matchactivities.springbootbackend.model.User;
 import com.matchactivities.springbootbackend.repository.TreinoRepository;
 import com.matchactivities.springbootbackend.service.TreinoService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,19 +28,33 @@ public class TreinoController {
 
     //funciona
     @GetMapping
-    public ResponseEntity<List<Treino>> list() {
+    public ResponseEntity<List<Treino>> list(long agendaId) {
+
         return ResponseEntity.ok(treinoRepository.findAll());
     }
 
     //funciona
     @PostMapping
-    public ResponseEntity<String> criar(@RequestBody Treino newTreino) {
+    public ResponseEntity<String> criar(@Valid @RequestBody TreinoDTO newTreino) {
 
-        //precisa mexer
-        //Id da agenda... descricao
-        Treino treino = treinoService.registerNewTreino(newTreino);
+        try{
+            Treino treino = treinoService.registerNewTreino(newTreino);
+            return ResponseEntity.ok("Usuário cadastrado");
+        }
+        catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
 
-        return ResponseEntity.ok("OK");
+
+    }
+
+    //Para realizar o delete, o caminho é: localhost:8080/api/treinos/deletarTreino?id=[ID QUE QUISER](Aqui vai o ID que quiser deletar)
+    //funciona
+    @DeleteMapping(path = "/deletarTreino")
+    public ResponseEntity<String> deletarTreino(@RequestParam Long id) {
+        treinoService.deletarTreino(id);
+
+        return ResponseEntity.ok("Usuario deletado");
 
     }
 
@@ -52,17 +70,5 @@ public class TreinoController {
 
     }
     */
-
-
-    //Para realizar o delete, o caminho é: localhost:8080/api/treinos/deletarTreino?id=[ID QUE QUISER](Aqui vai o ID que quiser deletar)
-    //funciona
-    @DeleteMapping(path = "/deletarTreino")
-    public ResponseEntity<String> deletarTreino(@RequestParam Long id) {
-        treinoService.deletarTreino(id);
-
-        return ResponseEntity.ok("Usuario deletado");
-
-    }
-
 
 }

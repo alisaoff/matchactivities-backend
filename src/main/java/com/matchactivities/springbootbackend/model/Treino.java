@@ -41,14 +41,15 @@ public class Treino {
     @Column(name = "descricao")
     private String descricao;
 
+    //depois volta pra data
     @Column(name = "data")
-    private Date data;
+    private String data;
 
 
    // @Column(name = "duracao")
    // private Date duracao;
 
-    //Murar para date depois depois
+    //Mudar para date depois depois
     @Column(name = "horario")
     private String horario;
 

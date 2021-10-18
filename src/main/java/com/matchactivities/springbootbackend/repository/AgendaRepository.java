@@ -13,4 +13,5 @@ public interface AgendaRepository extends JpaRepository<Agenda, Long> {
     List<Agenda>
     */
     List<Agenda>  findAllByCriadoPor(String list);
+    Agenda findById(long id);
 }

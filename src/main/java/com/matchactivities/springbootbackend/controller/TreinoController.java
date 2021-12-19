@@ -39,7 +39,7 @@ public class TreinoController {
 
         try{
             Treino treino = treinoService.registerNewTreino(newTreino);
-            return ResponseEntity.ok("Usuário cadastrado");
+            return ResponseEntity.ok("Treino cadastrado");
         }
         catch(Exception e){
             return ResponseEntity.badRequest().build();
@@ -61,13 +61,8 @@ public class TreinoController {
     /*//precisa mexer
     @PostMapping(path = "/alterarTreino")
     public ResponseEntity<Treino> alterar(@RequestBody Treino treino) {
-
         return new ResponseEntity<Treino>(treinoService.alterarTreino(treino), HttpStatus.OK);
-
-
-
         return ResponseEntity.ok("OK");
-
     }
     */
 

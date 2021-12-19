@@ -1,12 +1,14 @@
 package com.matchactivities.springbootbackend.dto;
 
 
+
 import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 
 //No caso isso seria um DTO, depois refatorar
 
@@ -23,6 +25,7 @@ public class RegisterForm {
     // @NotNull
     // @NotBlank
     private String password;
+
 
     public String getName() {
         return name;
@@ -47,4 +50,6 @@ public class RegisterForm {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

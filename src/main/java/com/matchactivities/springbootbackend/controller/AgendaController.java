@@ -35,6 +35,7 @@ public class AgendaController {
     public ResponseEntity<List<Agenda>> listAll() {
         return ResponseEntity.ok(agendaRepository.findAll());
     }
+
     //essa lógica precisa ser melhorada.
     @GetMapping(path ="/listarAgendasEspecificasEspecialista")
     public ResponseEntity<List<Agenda>> listSpecialist() {
@@ -59,12 +60,12 @@ public class AgendaController {
     public ResponseEntity<String> criar(@PathVariable ("email") String email) throws Exception {
 
 
-       // try {
+        // try {
 
 
-            Agenda agenda = agendaService.registerNewAgenda(email);
+        Agenda agenda = agendaService.registerNewAgenda(email);
 
-            return ResponseEntity.ok("Usuário cadastrado");
+        return ResponseEntity.ok("Agenda criada para o usuario " + email);
        /* }
        catch (Exception e){
             return ResponseEntity.badRequest().build();

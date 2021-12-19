@@ -13,8 +13,12 @@ import java.util.Date;
 @Entity
 @EqualsAndHashCode
 @Table(name = "treinos")
+
+
 @ToString
+
 @NoArgsConstructor
+
 //Builder estava dando falha
 //foi por causa do lombok :))
 @Getter
@@ -26,9 +30,12 @@ public class Treino {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="agenda_id")
+    @NotNull
+    private Agenda agenda;
 
     @Column(name = "atividade")
     private String atividade;
@@ -40,16 +47,12 @@ public class Treino {
     @Column(name = "data")
     private String data;
 
-
-   // @Column(name = "duracao")
-   // private Date duracao;
-
-    //Mudar para date depois depois
+    //Mudar para date depois
     @Column(name = "horario")
     private String horario;
 
-    @Column(name = "estado")
-    private Boolean estado;
+    @Column(name = "estaTerminado")
+    private Boolean isFinished;
 
 
 }

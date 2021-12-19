@@ -1,5 +1,6 @@
 package com.matchactivities.springbootbackend.config;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.servlet.FilterChain;
@@ -53,7 +54,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
         String z = user.getSubject();
 
 
-        return new UsernamePasswordAuthenticationToken(z, null, Collections.emptyList());
+        return new UsernamePasswordAuthenticationToken(z, null, new ArrayList<>());
     }
 
 

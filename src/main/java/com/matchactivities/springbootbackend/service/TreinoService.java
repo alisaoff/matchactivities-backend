@@ -31,11 +31,12 @@ public class TreinoService {
         Agenda agenda = agendaRepository.findById(newTreino.getIdAgenda());
 
         Treino treino = Treino.builder()
+                .agenda(agenda)
                 .horario(newTreino.getHorario())
                 .data(newTreino.getData())
                 .atividade(newTreino.getAtividade())
                 .descricao(newTreino.getDescricao())
-                .estado(false).build();
+                .isFinished(false).build();
         System.out.println("treino salvo ;)");
         agenda.getTreinos().add(treino);
         return treinoRepository.save(treino);
@@ -47,13 +48,7 @@ public class TreinoService {
         treinoRepository.deleteById(id);
     }
 
-    /*
-    //TODO
-    public Treino alterarTreino(Treino treino) {
 
-        return treino;
-
-    } */
 
 
 

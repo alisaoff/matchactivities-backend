@@ -1,7 +1,6 @@
 package com.matchactivities.springbootbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -22,6 +21,9 @@ public class User implements UserDetails{
     private String email;
     @Column(name = "senha")
     private String password;
+
+
+
 
 
     // depois mudar para o jeito do lombok, para deixar tudo padronizado :)
@@ -66,6 +68,8 @@ public class User implements UserDetails{
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

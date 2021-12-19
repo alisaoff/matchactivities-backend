@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,6 +26,7 @@ import com.matchactivities.springbootbackend.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.web.util.UrlPathHelper;
 
 import static java.lang.Integer.valueOf;
 
@@ -31,7 +34,8 @@ import static java.lang.Integer.valueOf;
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
-
+    private static Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
+    private final static UrlPathHelper urlPathHelper = new UrlPathHelper();
 
     public AuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -70,7 +74,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         String token = Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, SecurityConfiguration.SECRET).setExpiration(exp).compact();
         res.addHeader("token", token);
 
-    //depois preciso transformar isso em um método separado, deixar o código mais bonito
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode rootNode = mapper.createObjectNode();
 
@@ -87,8 +90,14 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
-    protected AuthenticationFailureHandler getFailureHandler() {
-        return super.getFailureHandler();
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                              AuthenticationException failed) throws IOException, ServletException {
+        logger.debug("failed authentication while attempting to access "
+                + urlPathHelper.getPathWithinApplication((HttpServletRequest) request));
+
+        //Add more descriptive message
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+                "Authentication Failed");
     }
 
     public int getIdusuario(String token) {

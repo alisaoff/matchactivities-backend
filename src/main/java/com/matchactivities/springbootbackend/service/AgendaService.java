@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class AgendaService {
@@ -33,8 +32,8 @@ public class AgendaService {
         String name = user.getName();
         String username = user.getUsername();
 
-        Set<Treino> treinos = null;
-        Agenda agenda = Agenda.builder().criadoPor(z).nome(name).treinos(treinos).user(user).build();
+        List<Treino> treinos = new ArrayList<>();
+        Agenda agenda = Agenda.builder().criadoPor(z).nome(name).user(user).treinos(treinos).isActive(true).build();
 
         return agendaRepository.save(agenda);
 
